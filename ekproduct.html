@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Product Page</title>
+  <link rel="stylesheet" href="index.css" />
+  <link rel="stylesheet" href="ekhome.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+    <header class="navbar">
+    <div class="logo">🛍️ Products</div>
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+   <ul class="nav-links">
+    <li><a href="ekhome.html">Home</a></li>
+    <li><a href="ekproduct.html">Products</a></li>
+    <li><a href="index.html">Logout</a></li>
+  
+  <div class="icons">
+    <div class="icon" onclick="window.location.href='ecowish.html'">
+      <i class="fas fa-heart"></i>
+      <span id="wishlist-count" class="badge">0</span>
+    </div>
+    <div class="icon" onclick="window.location.href='ecocart.html'">
+      <i class="fas fa-shopping-cart"></i>
+      <span id="cart-count" class="badge">0</span>
+    </div>
+  </div>
+  </ul>
+<!-- </nav> -->
+  </header>
+
+   <header class="main-header">
+  <div class="menu-icon" onclick="toggleMenu()">
+    <i class="fas fa-bars"></i>
+  </div>
+
+
+<div class="search-container">
+  <input type="text" id="searchInput" placeholder="Search products..." onkeyup="searchproducts()" />
+  <button class="search-icon" onclick="searchproducts()">
+    <i class="fas fa-search"></i>
+  </button>
+</div>
+
+</header>
+<section class="products">
+    
+  <div class="product-card product">
+    <div class="wishlist-icon" onclick="addToWishlist(this)">♡</div>
+    <a href="ekview2.html"> 
+    <img src="./blackshirtmen.jpg"/>
+    <h3 id="product-name">TOPLOT Shirt</h3>
+    <p class="product-description">High-quality men's Casual Stylish Fashion shirt.</p>
+   <span class="price">₹599</span>
+   <span class="mrp">₹1,999</span>
+  <span class="discount">86% off</span>
+  </a>
+      <button onclick="addToCart('TOPLOT Shirt', 599, this)">Add to Cart</button>
+      <div id="toast" class="toast">Added to Cart</div>
+    </div>
+ 
+    <div class="product-card product">
+    <div class="wishlist-icon" onclick="addToWishlist(this)">♡</div>
+    <a href="ekview1.html" class="product-link"> 
+    <img src="./modernss.jpg"/>
+    <h3 id="product-name">Trijal Fab Top </h3>
+    <p class="product-description">High-quality Dyed Georgette Women’s Events.</p>
+  <span class="price">₹399</span>
+  <span class="mrp">₹1,299</span>
+  <span class="discount">75% off</span>
+   </a>
+      <button onclick="addToCart('Trijal Fab Top', 399, this)">Add to Cart</button>
+      <div id="toast" class="toast">Added to Cart</div>
+    </div>
+    
+    <div class="product-card product">
+    <div class="wishlist-icon" onclick="addToWishlist(this)">♡</div>
+     <a href="ekview3.html" class="product-link">  
+    <img src="./babygirlssssss.webp"/>
+    <h3 id="product-name">Kids Wear</h3>
+    <p class="product-description">High-quality kids fashion dress for stylish.</p>
+    <span class="price">₹499</span>
+    <span class="mrp">₹1,799</span>
+    <span class="discount">56% off</span>
+    </a>
+      <button onclick="addToCart('Kids Gown', 499, this)">Add to Cart</button>
+      <div id="toast" class="toast">Added to Cart</div>
+    </div>
+  
+    
+    
+    <div class="product-card product">
+    <div class="wishlist-icon" onclick="addToWishlist(this)">♡</div>
+     <a href="ekview4.html" class="product-link"> 
+    <img src="./mnswear.webp"/>
+    <h3 id="product-name">Lymio Shirt</h3>
+    <p class="product-description">High-quality Casual Regular Fit Shirt for Men.</p>
+     <span class="price">₹699</span>
+     <span class="mrp">₹1,999</span>
+      <span class="discount">76% off</span>
+      </a>
+      <button onclick="addToCart('Lymio Shirt', 699, this)">Add to Cart</button>
+      <div id="toast" class="toast">Added to Cart</div>
+    </div>
+   
+
+    
+    <div class="product-card product">
+    <div class="wishlist-icon" onclick="addToWishlist(this)">♡</div>
+    <a href="ekview5.html" class="product-link"> 
+    <img src="./frockwear.jpg"/>
+    <h3 id="product-name">Fashion Top</h3>
+    <p class="product-description">High-quality fashion dress for womens.</p>
+   <span class="price">₹999</span>
+   <span class="mrp">₹2,999</span>
+  <span class="discount">83% off</span>
+   </a>
+      <button onclick="addToCart('Fashion Topt', 999, this)">Add to Cart</button>
+      <div id="toast" class="toast">Added to Cart</div>
+    </div>
+ 
+
+</section>
+
+  <script>
+  function searchproducts() {
+  const input = document.getElementById("searchInput").value.toLowerCase();
+  const products = document.querySelectorAll(".product");
+
+  products.forEach(product => {
+    const name = product.textContent.toLowerCase();
+    if (name.includes(input)) {
+      product.style.display = "block";
+    } else {
+      product.style.display = "none";
+    }
+  });
+}
+
+</script>
+  <script src="ekart.js"></script>
+</body>
+</html>

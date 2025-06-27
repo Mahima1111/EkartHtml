@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Product View</title>
+  <link rel="stylesheet" href="ekhome.css" />
+    <link rel="stylesheet" href="index.css" />
+
+</head>
+<body>
+
+<div class="product-view-container">
+  <div class="left-gallery">
+    <!-- <div class="thumbnail-list">
+      <img src="img1.jpg" onclick="changeImage(this)" />
+      <img src="img2.jpg" onclick="changeImage(this)" />
+      <img src="img3.jpg" onclick="changeImage(this)" />
+      <img src="img4.jpg" onclick="changeImage(this)" />
+    </div> -->
+    <div class="main-image">
+      <img id="main-image" src="./blackshirtmen.jpg" alt="Product Image" />
+    </div>
+  </div> 
+
+  <div class="right-details">
+    <h2>TOPLOT Shirt 
+    Men Regular Fit Self Design Spread Collar Casual Shirt</h2>
+    <p class="brand">Brand: <strong> DENEEJA</strong></p>
+
+    <div class="price-section">
+      <span class="price">₹599</span>
+      <span class="mrp">₹1,999</span>
+      <span class="discount">86% off</span>
+    </div>
+
+    <div class="rating-box">
+      <span class="rating">★ 3.8</span>
+      <span class="reviews">12 ratings & 1 review</span>
+    </div>
+
+    <div class="size-selector">
+      <p><strong>Size:</strong></p>
+      <button>S</button>
+      <button>M</button>
+      <button>L</button>
+      <button>XL</button>
+      <button>XXL</button>
+      <!-- <a href="#">Size Chart 📏</a> -->
+    </div>
+
+    <div class="offers">
+      <h4>Available offers</h4>
+      <ul>
+        <li>✅ 100% Cashback on Axis Bank UPI</li>
+        <li>✅ 5% off with Flipkart Axis Credit Card</li>
+        <li>✅ 10% off on SBI EMI orders above ₹5,000</li>
+        <li>✅ Extra 10% off with coupons</li>
+      </ul>
+    </div>
+
+   <div class="delivery-check">
+  <label>Enter delivery pincode:</label>
+  <input type="text" id="pincodeInput" placeholder="e.g. 560001" />
+  <button onclick="checkPincode()">Check</button>
+  <p id="pincodeResult"></p>
+</div>
+
+    <div class="action-buttons">
+   <a href="ekcart.html"><button class="cart-btn">🛒 Add to Cart</button> </a>   
+    <a href="ekorder2.html"><button class="buy-btn">⚡ Buy Now</button> </a>  
+    </div>
+  </div>
+</div>
+
+<script>
+  function changeImage(elem) {
+    document.getElementById("main-image").src = elem.src;
+  }
+
+  function checkPincode() {
+  const pin = document.getElementById("pincodeInput").value.trim();
+  const result = document.getElementById("pincodeResult");
+
+  // Check if pin is 6-digit and numeric
+  if (/^[1-9][0-9]{5}$/.test(pin)) {
+    result.textContent = "✅ Delivery available for this pincode.";
+    result.style.color = "green";
+  } else {
+    result.textContent = "❌ Invalid pincode. Please enter a valid 6-digit code.";
+    result.style.color = "red";
+  }
+}
+</script>
+  <script src="js/ekcart.js"></script>
+
+</body>
+</html>

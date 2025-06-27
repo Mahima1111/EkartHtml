@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Wishlist</title>
+  <link rel="stylesheet" href="index.css" />
+  <link rel="stylesheet" href="ekhome.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">❤️ My Wishlist</div>
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+   <ul class="nav-links">
+    <li><a href="ekhome.html">Home</a></li>
+    <li><a href="ekproduct.html">Products</a></li>
+    <li><a href="index.html">Logout</a></li>
+    <div class="icons">
+    <div class="icon" onclick="window.location.href='ekwish.html'">
+      
+        <i class="fas fa-heart"></i> 
+        <!-- <span id="wishlist-count">0</span> -->
+      </div>
+      <div class="icon" onclick="window.location.href='ekcart.html'">
+        <i class="fas fa-shopping-cart"></i> 
+        <!-- <span id="cart-count">0</span> -->
+      </div>
+    </div>
+  </nav>
+  <div id="wishlist-items"></div>
+
+  <div id="toast" class="toast"></div>
+  
+  <script>
+  const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+  const wishlistContainer = document.getElementById("wishlist-items");
+
+  if (wishlist.length === 0) {
+    wishlistContainer.innerHTML = "<p>Your wishlist is empty.</p>";
+  } else {
+    wishlist.forEach((item, index) => {
+      const discount = Math.round(((item.mrp - item.price) / item.mrp) * 100);
+
+      wishlistContainer.innerHTML += `
+        <div class="wishlist-item">
+          <img src="${item.image}" alt="${item.name}">
+          <div class="wishlist-info">
+            <h3>${item.name}</h3>
+            <p>
+              <span class="price">₹${item.price}</span>
+              <span class="mrp">₹${item.mrp}</span>
+              <span class="discount">${discount}% off</span>
+            </p>
+            <button onclick="moveToCart(${index})">Move to Cart</button>
+          </div>
+          <i class="fas fa-trash remove-btn" onclick="removeFromWishlist(${index})"></i>
+        </div>
+      `;
+    });
+  }
+
+  function removeFromWishlist(index) {
+    const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+    wishlist.splice(index, 1);
+    localStorage.setItem("wishlist", JSON.stringify(wishlist));
+    showToast("❌ Removed from Wishlist");
+    location.reload();
+  }
+
+  function moveToCart(index) {
+    const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    const item = wishlist[index];
+    cart.push({ ...item, quantity: 1 });
+
+    wishlist.splice(index, 1);
+
+    localStorage.setItem("wishlist", JSON.stringify(wishlist));
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    showToast("🛒 Moved to Cart");
+    location.reload();
+  }
+
+  function showToast(message) {
+    const toast = document.getElementById("toast");
+    toast.textContent = message;
+    toast.classList.add("show");
+    setTimeout(() => toast.classList.remove("show"), 2000);
+  }
+</script>
+
+  <script src="js/ekart.js"></script>
+
+</body>
+</html>
