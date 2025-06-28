@@ -70,6 +70,36 @@
       return true;
     }
 
+
+ function applyFilters() {
+  const searchText = document.getElementById("searchInput").value.toLowerCase();
+  const category = document.getElementById("categoryFilter").value.toLowerCase();
+  const sortOption = document.getElementById("sortSelect").value;
+
+  const allProducts = Array.from(document.querySelectorAll(".product-card.product"));
+  const productList = document.querySelector(".products");
+
+  // Filter products
+  let filteredProducts = allProducts.filter(product => {
+    const nameMatch = product.textContent.toLowerCase().includes(searchText);
+    const categoryMatch = category === "all" || product.dataset.category.toLowerCase() === category;
+    return nameMatch && categoryMatch;
+  });
+
+  // Sort products
+  if (sortOption !== "default") {
+    filteredProducts.sort((a, b) => {
+      const priceA = parseInt(a.dataset.price);
+      const priceB = parseInt(b.dataset.price);
+      return sortOption === "low-to-high" ? priceA - priceB : priceB - priceA;
+    });
+  }
+
+  // Clear and re-add sorted/filtered items
+  productList.innerHTML = "";
+  filteredProducts.forEach(product => productList.appendChild(product));
+}
+
     
 let currentSlide = 0;
 const slides = document.querySelectorAll(".hero-slide");

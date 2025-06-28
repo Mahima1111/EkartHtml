@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="index.css" />
   <link rel="stylesheet" href="ekhome.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  
 </head>
 <body>
     <header class="navbar">
@@ -18,11 +19,11 @@
     <li><a href="index.html">Logout</a></li>
   
   <div class="icons">
-    <div class="icon" onclick="window.location.href='ecowish.html'">
+    <div class="icon" onclick="window.location.href='ekwish.html'">
       <i class="fas fa-heart"></i>
       <span id="wishlist-count" class="badge">0</span>
     </div>
-    <div class="icon" onclick="window.location.href='ecocart.html'">
+    <div class="icon" onclick="window.location.href='ekcart.html'">
       <i class="fas fa-shopping-cart"></i>
       <span id="cart-count" class="badge">0</span>
     </div>
@@ -31,8 +32,29 @@
 <!-- </nav> -->
   </header>
 
-   <header class="main-header">
-  <div class="menu-icon" onclick="toggleMenu()">
+<div class="filter-sort-container">
+  <div class="filter-group">
+    <label for="categoryFilter"><strong>Filter by Category:</strong></label>
+    <select id="categoryFilter" onchange="applyFilters()">
+      <option value="all">All</option>
+      <option value="men">Men</option>
+      <option value="women">Women</option>
+      <option value="kids">Kids</option>
+    </select>
+  </div>
+
+  <div class="filter-group">
+    <label for="sortSelect"><strong>Sort by Price:</strong></label>
+    <select id="sortSelect" onchange="applyFilters()">
+      <option value="default">Default</option>
+      <option value="low-to-high">Low to High</option>
+      <option value="high-to-low">High to Low</option>
+    </select>
+  </div>
+</div>
+
+ <header class="main-header">
+ <div class="menu-icon" onclick="toggleMenu()">
     <i class="fas fa-bars"></i>
   </div>
 
@@ -43,11 +65,14 @@
     <i class="fas fa-search"></i>
   </button>
 </div>
+</header>
+
+  
+
 
 </header>
 <section class="products">
-    
-  <div class="product-card product">
+  <div class="product-card product" data-category="men" data-price="599">
     <div class="wishlist-icon" onclick="addToWishlist(this)">♡</div>
     <a href="ekview2.html"> 
     <img src="./blackshirtmen.jpg"/>
@@ -61,7 +86,7 @@
       <div id="toast" class="toast">Added to Cart</div>
     </div>
  
-    <div class="product-card product">
+    <div class="product-card product" data-category="women" data-price="399">
     <div class="wishlist-icon" onclick="addToWishlist(this)">♡</div>
     <a href="ekview1.html" class="product-link"> 
     <img src="./modernss.jpg"/>
@@ -75,7 +100,7 @@
       <div id="toast" class="toast">Added to Cart</div>
     </div>
     
-    <div class="product-card product">
+    <div class="product-card product" data-category="kids" data-price="499">
     <div class="wishlist-icon" onclick="addToWishlist(this)">♡</div>
      <a href="ekview3.html" class="product-link">  
     <img src="./babygirlssssss.webp"/>
@@ -91,7 +116,7 @@
   
     
     
-    <div class="product-card product">
+    <div class="product-card product" data-category="men" data-price="699">
     <div class="wishlist-icon" onclick="addToWishlist(this)">♡</div>
      <a href="ekview4.html" class="product-link"> 
     <img src="./mnswear.webp"/>
@@ -107,7 +132,7 @@
    
 
     
-    <div class="product-card product">
+    <div class="product-card product" data-category="Women" data-price="999">
     <div class="wishlist-icon" onclick="addToWishlist(this)">♡</div>
     <a href="ekview5.html" class="product-link"> 
     <img src="./frockwear.jpg"/>
@@ -120,7 +145,7 @@
       <button onclick="addToCart('Fashion Topt', 999, this)">Add to Cart</button>
       <div id="toast" class="toast">Added to Cart</div>
     </div>
- 
+ </div>
 
 </section>
 

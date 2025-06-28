@@ -74,6 +74,30 @@ Men Regular Fit Solid Mandarin Collar Casual T-Shirt</h2>
   </div>
 </div>
 
+<section class="product-review-section">
+  <h2>Customer Reviews</h2>
+
+  <div class="review-form">
+    <h3>Write a Review</h3>
+    <textarea id="reviewText" placeholder="Write your thoughts..." rows="4"></textarea>
+    <div class="rating">
+      <label>Rating:</label>
+      <select id="reviewRating">
+        <option value="5">⭐ 5 - Excellent</option>
+        <option value="4">⭐ 4 - Good</option>
+        <option value="3">⭐ 3 - Average</option>
+        <option value="2">⭐ 2 - Poor</option>
+        <option value="1">⭐ 1 - Terrible</option>
+      </select>
+    </div>
+    <button onclick="submitReview()">Submit Review</button>
+  </div>
+
+  <div id="reviewsContainer">
+    <!-- Rendered reviews will appear here -->
+  </div>
+</section>
+
 <script>
   function changeImage(elem) {
     document.getElementById("main-image").src = elem.src;
