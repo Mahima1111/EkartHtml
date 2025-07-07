@@ -7,74 +7,157 @@
   <link rel="stylesheet" href="index.css" />
   <link rel="stylesheet" href="ekhome.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-
 </head>
 <body>
 
-  <header class="navbar">
-    <div class="logo">🛒 Cart</div>
+ <header class="navbar">
+    <div class="logo">🛒 My Cart</div>
     <div class="menu-toggle" onclick="toggleMenu()">☰</div>
    <ul class="nav-links">
     <li><a href="ekhome.html">Home</a></li>
     <li><a href="ekproduct.html">Products</a></li>
-    <li><a href="index.html">Logout</a></li>
+    
   
   <div class="icons">
     <div class="icon" onclick="window.location.href='ekwish.html'">
       <i class="fas fa-heart"></i>
-      <!-- <span id="wishlist-count" class="badge">0</span> -->
+      <span id="wishlist-count" class="badge">0</span>
     </div>
     <div class="icon" onclick="window.location.href='ekcart.html'">
       <i class="fas fa-shopping-cart"></i>
-      <!-- <span id="cart-count" class="badge">0</span> -->
+      <span id="cart-count" class="badge">0</span>
     </div>
   </div>
+   <li><a href="index.html">Logout</a></li>
   </ul>
-<!-- </nav> -->
   </header>
 
-  <section class="products">
-    <div id="cart-items" class="horizontal-scroll"></div>
-  </section>
-
+  <div class="cart-container" id="cartContainer"></div>
   <div id="toast" class="toast"></div>
 
   <script>
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const container = document.getElementById('cart-items');
-    const toast = document.getElementById('toast');
-    container.innerHTML = '';
+    function loadCart() {
+      const cart = JSON.parse(localStorage.getItem("cartItems")) || [];
+      const container = document.getElementById("cartContainer");
+      container.innerHTML = "";
 
     if (cart.length === 0) {
-      container.innerHTML = "<p style='padding: 20px;'>Your cart is empty.</p>";
-    } else {
+  container.innerHTML = `
+    <div class="empty-cart-wrapper">
+      <p class="empty-cart-message">Your cart is empty.</p>
+    </div>
+  `;
+  updateCartCount();
+  return;
+}
+
+
+      let total = 0;
       cart.forEach((item, index) => {
+        total += item.price * item.quantity;
+      
         container.innerHTML += `
-          <div class="product-card">
+          <div class="cart-item">
             <img src="${item.image}" alt="${item.name}">
-            <h3>${item.name}</h3>
-            <p>₹${item.price}</p>
-            <button onclick="removeItem(${index})">Remove</button>
+            <div class="item-info">
+              <h4>${item.name}</h4>
+              <p>₹${item.price}</p>
+              <div class="qty-controls">
+                <button onclick="changeQty(${index}, -1)">−</button>
+                <span>${item.quantity}</span>
+                <button onclick="changeQty(${index}, 1)">+</button>
+              </div>
+            </div>
+            <i class="fas fa-trash remove-btn" onclick="removeItem(${index})"></i>
           </div>
+        
         `;
+        
       });
+
+      container.innerHTML += `
+        <div class="cart-summary">
+            <strong>Total: ₹${total}</strong><br><br>
+          <button class="checkout-btn" onclick="checkout()">Checkout</button>
+        </div>
+      `;
+
+      updateCartCount();
+    }
+
+    function changeQty(index, delta) {
+      let cart = JSON.parse(localStorage.getItem("cartItems")) || [];
+      cart[index].quantity += delta;
+      if (cart[index].quantity <= 0) {
+        cart.splice(index, 1);
+        showToast("Item removed from cart");
+      } else {
+        showToast("Quantity updated");
+      }
+      localStorage.setItem("cartItems", JSON.stringify(cart));
+      loadCart();
     }
 
     function removeItem(index) {
-      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      let cart = JSON.parse(localStorage.getItem("cartItems")) || [];
       cart.splice(index, 1);
-      localStorage.setItem('cart', JSON.stringify(cart));
-      showToast("X Removed from Cart");
-      setTimeout(() => location.reload(), 800);
+      localStorage.setItem("cartItems", JSON.stringify(cart));
+      showToast("Item removed from cart");
+      loadCart();
+    }
+
+    function checkout() {
+      const cart = JSON.parse(localStorage.getItem("cartItems")) || [];
+      if (cart.length === 0) {
+        showToast("🛒 Your cart is empty!");
+        return;
+      }
+
+      
+    let total = 0;
+    cart.forEach(item => {
+    total += item.price * item.quantity;
+  });
+
+      localStorage.setItem("cartTotal", total);
+      window.location.href = "echeckout.html";
+      localStorage.removeItem("cartItems");
+      showToast("Checkout successful!");
+      setTimeout(() => {
+        loadCart();
+      }, 1500);
     }
 
     function showToast(message) {
+      const toast = document.getElementById("toast");
       toast.textContent = message;
       toast.classList.add("show");
       setTimeout(() => toast.classList.remove("show"), 2000);
     }
+
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem("cartItems")) || [];
+      const total = cart.reduce((sum, item) => sum + item.quantity, 0);
+      document.getElementById("cart-count").textContent = total;
+    }
+
+    function updateWishlistCount() {
+      const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+      document.getElementById("wishlist-count").textContent = wishlist.length;
+    }
+
+    function toggleMenu() {
+      const navLinks = document.querySelector(".nav-links");
+      navLinks.style.display = navLinks.style.display === "flex" ? "none" : "flex";
+    }
+    document.addEventListener("DOMContentLoaded", () => {
+      loadCart();
+      updateCartCount();
+      updateWishlistCount();
+    });
+
+
   </script>
 
-  <script src="js/ekart.js"></script>
 </body>
 </html>

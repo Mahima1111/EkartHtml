@@ -5,115 +5,537 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Product View</title>
   <link rel="stylesheet" href="ekhome.css" />
-    <link rel="stylesheet" href="index.css" />
+  <link rel="stylesheet" href="index.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    
+.navbar {
+  background-color: #0d6efd;
+  color: white;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
 
-</head>
-<body>
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
 
-<div class="product-view-container">
-  <div class="left-gallery">
-    <!-- <div class="thumbnail-list">
-      <img src="img1.jpg" onclick="changeImage(this)" />
-      <img src="img2.jpg" onclick="changeImage(this)" />
-      <img src="img3.jpg" onclick="changeImage(this)" />
-      <img src="img4.jpg" onclick="changeImage(this)" />
-    </div> -->
-    <div class="main-image">
-      <img id="main-image" src="./frockwear.jpg" alt="Product Image" />
-    </div>
-  </div> 
+.nav-links {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+  align-items: center;
+}
 
-  <div class="right-details">
-    <h2>Fashion Top</h2>
-    <p class="brand">Brand: <strong> DENEEJA</strong></p>
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+}
 
-    <div class="price-section">
-      <span class="price">₹999</span>
-      <span class="mrp">₹2,999</span>
-      <span class="discount">83% off</span>
-    </div>
+.icons {
+  display: flex;
+  gap: 15px;
+}
 
-    <div class="rating-box">
-      <span class="rating">★ 3.8</span>
-      <span class="reviews">12 ratings & 1 review</span>
-    </div>
+.icon {
+  position: relative;
+  cursor: pointer;
+}
 
-    <div class="size-selector">
-      <p><strong>Size:</strong></p>
-      <button>S</button>
-      <button>M</button>
-      <button>L</button>
-      <button>XL</button>
-      <button>XXL</button>
-      <!-- <a href="#">Size Chart 📏</a> -->
-    </div>
+.badge {
+  background: red;
+  color: white;
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 50%;
+  position: absolute;
+  top: -8px;
+  right: -8px;
+}
 
-    <div class="offers">
-      <h4>Available offers</h4>
-      <ul>
-        <li>✅ 100% Cashback on Axis Bank UPI</li>
-        <li>✅ 5% off with Flipkart Axis Credit Card</li>
-        <li>✅ 10% off on SBI EMI orders above ₹5,000</li>
-        <li>✅ Extra 10% off with coupons</li>
-      </ul>
-    </div>
 
-   <div class="delivery-check">
-  <label>Enter delivery pincode:</label>
-  <input type="text" id="pincodeInput" placeholder="e.g. 560001" />
-  <button onclick="checkPincode()">Check</button>
-  <p id="pincodeResult"></p>
-</div>
+.menu-toggle {
+  display: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  user-select: none;
+  color: white;
+}
 
-    <div class="action-buttons">
-   <a href="ekcart.html"><button class="cart-btn">🛒 Add to Cart</button> </a>   
-    <a href="ekorder5.html"><button class="buy-btn">⚡ Buy Now</button></a>
-    </div>
-  </div>
-</div>
+.menu-toggle.open::before {
+  content: " ";
+}
 
-<section class="product-review-section">
-  <h2>Customer Reviews</h2>
-
-  <div class="review-form">
-    <h3>Write a Review</h3>
-    <textarea id="reviewText" placeholder="Write your thoughts..." rows="4"></textarea>
-    <div class="rating">
-      <label>Rating:</label>
-      <select id="reviewRating">
-        <option value="5">⭐ 5 - Excellent</option>
-        <option value="4">⭐ 4 - Good</option>
-        <option value="3">⭐ 3 - Average</option>
-        <option value="2">⭐ 2 - Poor</option>
-        <option value="1">⭐ 1 - Terrible</option>
-      </select>
-    </div>
-    <button onclick="submitReview()">Submit Review</button>
-  </div>
-
-  <div id="reviewsContainer">
-    <!-- Rendered reviews will appear here -->
-  </div>
-</section>
-
-<script>
-  function changeImage(elem) {
-    document.getElementById("main-image").src = elem.src;
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
   }
-  function checkPincode() {
-  const pin = document.getElementById("pincodeInput").value.trim();
-  const result = document.getElementById("pincodeResult");
 
-  // Check if pin is 6-digit and numeric
-  if (/^[1-9][0-9]{5}$/.test(pin)) {
-    result.textContent = "✅ Delivery available for this pincode.";
-    result.style.color = "green";
-  } else {
-    result.textContent = "❌ Invalid pincode. Please enter a valid 6-digit code.";
-    result.style.color = "red";
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    background: white;
+    color: black;
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    width: 200px;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    z-index: 999;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .nav-links a {
+    color: black;
+  }
+
+  .icons {
+    justify-content: space-between;
   }
 }
-</script>
-  <script src="js/ekart.js"></script>
+
+
+.product-view-container {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 30px;
+  gap: 30px;
+  background: #f8f9fa;
+}
+
+.left-gallery {
+  flex: 1 1 300px;
+}
+
+.left-gallery img {
+  width: 100%;
+  max-width: 350px;
+  border-radius: 10px;
+}
+
+.right-details {
+  flex: 2;
+}
+
+.right-details h2 {
+  font-size: 22px;
+  margin-bottom: 8px;
+}
+
+.brand {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.price-section {
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+
+.price {
+  font-weight: bold;
+  color: green;
+  margin-right: 12px;
+}
+
+.mrp {
+  text-decoration: line-through;
+  color: gray;
+  margin-right: 8px;
+}
+
+.discount {
+  color: red;
+}
+
+.rating-box {
+  margin-bottom: 12px;
+}
+
+.rating {
+  background-color: green;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.size-selector button {
+  margin: 5px 5px 10px 0;
+  padding: 8px 14px;
+  border: 1px solid #090909;
+  background: rgb(213, 28, 28);
+  cursor: pointer;
+  border-radius: 6px;
+  transition: 0.3s;
+}
+
+.size-selector button.selected {
+  background: #0d6efd;
+  color: white;
+  border-color: #0d6efd;
+}
+
+.offers ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 10px 0;
+}
+
+.delivery-check input {
+  padding: 8px;
+  margin-top: 5px;
+  margin-right: 10px;
+  width: 160px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.delivery-check button {
+  padding: 8px 12px;
+  background-color: #0d6efd;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+ .action-buttons {
+  margin-top: 20px;
+}
+
+.cart-btn,
+.buy-btn {
+  padding: 12px 18px;
+  font-size: 16px;
+  margin-right: 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.cart-btn {
+  background: orange;
+  color: white;
+}
+
+.buy-btn {
+  background: green;
+  color: white;
+}
+
+ .product-review-section {
+  background-color: #fefefe;
+  padding: 30px;
+  max-width: 700px;
+  margin: 40px auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+}
+
+.product-review-section h2 {
+  font-size: 24px;
+  margin-bottom: 16px;
+}
+
+#reviewForm {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+#reviewText {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  resize: vertical;
+  min-height: 100px;
+}
+
+#reviewForm button {
+  padding: 12px;
+  font-size: 16px;
+  background-color: #0d6efd;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#reviewForm button:hover {
+  background-color: #0b5ed7;
+}
+
+.review {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.review strong {
+  color: #0d6efd;
+  font-size: 16px;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.review small {
+  color: #666;
+  font-size: 13px;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.review p {
+  margin: 0;
+  font-size: 15px;
+  color: #333;
+  line-height: 1.5;
+}
+
+
+#toast-container {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 10000;
+}
+
+.toast {
+  background-color: #333;
+  color: white;
+  padding: 12px 18px;
+  border-radius: 6px;
+  margin-top: 10px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.4s ease;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+ @media (max-width: 600px) {
+  .product-view-container {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .product-review-section {
+    padding: 20px;
+    margin: 20px;
+  }
+
+  #reviewText,
+  #reviewForm button {
+    font-size: 15px;
+    padding: 10px;
+  }
+
+  .left-gallery img {
+    max-width: 100%;
+  }
+
+  .action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .cart-btn, .buy-btn {
+    width: 100%;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="ekhome.html">Home</a></li>
+      <li><a href="ekproduct.html">Products</a></li>
+      <div class="icons">
+        <div class="icon" onclick="window.location.href='ekwish.html'">
+          <i class="fas fa-heart"></i>
+          <span id="wishlist-count" class="badge">0</span>
+        </div>
+        <div class="icon" onclick="window.location.href='ekcart.html'">
+          <i class="fas fa-shopping-cart"></i>
+          <span id="cart-count" class="badge">0</span>
+        </div>
+      </div>
+      <li><a href="index.html">Logout</a></li>
+    </ul>
+  </header>
+
+  <div class="product-view-container">
+    <div class="left-gallery">
+      <div class="main-image">
+        <img id="main-image" src="./frockwear.jpg" alt="Product Image" />
+      </div>
+    </div>
+
+    <div class="right-details">
+      <h2>Fashion Top High-quality fashion dress for womens</h2>
+      <p class="brand">Brand: <strong>DENEEJA</strong></p>
+
+      <div class="price-section">
+        <span class="price">₹999</span>
+        <span class="mrp">₹2999</span>
+        <span class="discount">80% off</span>
+      </div>
+
+      <div class="rating-box">
+        <span class="rating">★ 3.9</span>
+        <span class="reviews">10 ratings & 1 review</span>
+      </div>
+
+      <div class="size-selector">
+        <p><strong>Size:</strong></p>
+        <button>S</button>
+        <button>M</button>
+        <button>L</button>
+        <button>XL</button>
+        <button>XXL</button>
+      </div>
+
+      <div class="offers">
+        <h4>Available offers</h4>
+        <ul>
+          <li>✅ 100% Cashback on Axis Bank UPI</li>
+          <li>✅ 5% off with Axis Credit Card</li>
+          <li>✅ 10% off on SBI EMI orders above ₹5,000</li>
+          <li>✅ Extra 10% off with coupons</li>
+        </ul>
+      </div>
+
+      <div class="delivery-check">
+        <label>Enter delivery pincode:</label>
+        <input type="text" id="pincodeInput" placeholder="e.g. 560001" />
+        <button onclick="checkPincode()">Check</button>
+        <p id="pincodeResult"></p>
+      </div>
+
+      <div class="action-buttons">
+        <a href="ekcart.html"><button class="cart-btn">🛒 Add to Cart</button></a>
+        <a href="ekorder5.html"><button class="buy-btn">⚡ Buy Now</button></a>
+      </div>
+    </div>
+  </div>
+
+  <section class="product-review-section">
+    <h2>Customer Reviews</h2>
+    <form id="reviewForm">
+      <textarea id="reviewText" placeholder="Write your review..." required></textarea>
+      <button type="submit">Submit Review</button>
+    </form>
+    <div id="reviewsContainer"></div>
+  </section>
+
+  <script>
+    const productId = "product_frockwear";
+    const currentUser = localStorage.getItem("loggedInUser") || "Mahima";
+
+    document.addEventListener("DOMContentLoaded", () => {
+      updateCartCount();
+      updateWishlistCount();
+      loadProductReviews();
+
+      document.querySelectorAll(".size-selector button").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".size-selector button").forEach(b => b.classList.remove("selected"));
+          btn.classList.add("selected");
+        });
+      });
+
+      document.getElementById("reviewForm").addEventListener("submit", e => {
+        e.preventDefault();
+        const reviewText = document.getElementById("reviewText").value.trim();
+        if (!reviewText) return;
+
+        let allReviews = JSON.parse(localStorage.getItem("productReviews")) || [];
+        const existing = allReviews.find(r => r.productId === productId && r.name === currentUser);
+        if (existing) {
+          alert("You have already submitted a review for this product.");
+          return;
+        }
+
+        const now = new Date();
+        const timestamp = now.toLocaleDateString("en-GB", { day: "2-digit", month: "long", year: "numeric" }) +
+                          ", " + now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+
+        const review = { productId, name: currentUser, text: reviewText, timestamp };
+        allReviews.push(review);
+        localStorage.setItem("productReviews", JSON.stringify(allReviews));
+
+        addReviewToDOM(review);
+        document.getElementById("reviewForm").reset();
+      });
+    });
+
+    function loadProductReviews() {
+      const allReviews = JSON.parse(localStorage.getItem("productReviews")) || [];
+      const filtered = allReviews.filter(r => r.productId === productId);
+      filtered.forEach(addReviewToDOM);
+    }
+
+    function addReviewToDOM({ name, timestamp, text }) {
+      const container = document.getElementById("reviewsContainer");
+      const div = document.createElement("div");
+      div.className = "review";
+      div.innerHTML = `<strong>${name}</strong><br><small>${timestamp}</small><p>${text}</p>`;
+      container.appendChild(div);
+    }
+
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem("cartItems")) || [];
+      document.getElementById("cart-count").textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+    }
+
+    function updateWishlistCount() {
+      const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+      document.getElementById("wishlist-count").textContent = wishlist.length;
+    }
+
+    function checkPincode() {
+      const pin = document.getElementById("pincodeInput").value.trim();
+      const result = document.getElementById("pincodeResult");
+      if (/^[1-9][0-9]{5}$/.test(pin)) {
+        result.textContent = "✅ Delivery available for this pincode.";
+        result.style.color = "green";
+      } else {
+        result.textContent = "Invalid pincode. Please enter a valid 6-digit code.";
+        result.style.color = "red";
+      }
+    }
+
+    function toggleMenu() {
+      const menu = document.getElementById("navLinks");
+      const toggle = document.querySelector(".menu-toggle");
+      if (menu && toggle) {
+        menu.classList.toggle("active");
+        toggle.classList.toggle("open");
+      }
+    }
+  </script>
+
+  <script src="js/ekcart.js"></script>
 </body>
 </html>

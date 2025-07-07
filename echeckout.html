@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Checkout</title>
+  <link rel="stylesheet" href="echeckout.css" />
+</head>
+<body>
+<nav class="navbar">
+    <div class="logo">Payment</div>
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+     <ul class="nav-links">
+    <li><a href="ekhome.html">Home</a></li>
+    <li><a href="index.html">Logout</a></li>
+   </ul>
+ </nav>
+
+
+  <div class="checkout-container">
+    <section class="section shipping">
+      <h3>Shipping Address</h3>
+      <form id="shippingForm">
+        <input type="text" placeholder="Full Name" required>
+        <input type="text" placeholder="Phone Number" required>
+        <input type="text" placeholder="Address Line 1" required>
+        <input type="text" placeholder="City" required>
+        <input type="text" placeholder="State" required>
+        <input type="text" placeholder="Pincode" required>
+      </form>
+    </section>
+
+  
+    <section class="section payment">
+      <h3>Payment Method</h3>
+      <label><input type="radio" name="payment" value="card" checked> Credit/Debit Card</label>
+      <label><input type="radio" name="payment" value="upi"> UPI</label>
+      <label><input type="radio" name="payment" value="cod"> Cash on Delivery</label>
+    </section>
+
+    
+    <section class="section summary">
+      <h3>Order Summary</h3>
+      <div class="summary-line">
+        <span>Total Amount:</span>
+        <span id="totalAmount">₹0</span>
+      </div>
+      <button class="pay-btn" onclick="placeOrder()">Pay Now</button>
+    </section>
+  </div>
+
+ <script>
+  document.addEventListener("DOMContentLoaded", () => {
+  const total = localStorage.getItem("cartTotal") || 0;
+  document.getElementById("totalAmount").textContent = "₹" + total;
+  });
+  function placeOrder() {
+    const form = document.getElementById("shippingForm");
+  const inputs = form.querySelectorAll("input[required]");
+
+  let isValid = true;
+
+  inputs.forEach(input => {
+    if (!input.value.trim()) {
+      isValid = false;
+    }
+  });
+
+  if (!isValid) {
+    showToast("Please fill in all shipping address fields.");
+    return;
+  }
+
+    showToast("Order Placed Successfully!");
+    
+    setTimeout(() => {
+    window.location.href = "ekhome.html"; 
+  }, 3000); 
+}
+
+  
+
+  function showToast(message) {
+    const toast = document.createElement("div");
+    toast.className = "toast";
+    toast.textContent = message;
+    document.body.appendChild(toast);
+
+    setTimeout(() => {
+      toast.classList.add("show");
+    }, 100);
+
+    setTimeout(() => {
+      toast.classList.remove("show");
+      setTimeout(() => toast.remove(), 300);
+    }, 5000);
+  }
+
+   function toggleMenu() {
+      const navLinks = document.querySelector(".nav-links");
+      navLinks.style.display = navLinks.style.display === "flex" ? "none" : "flex";
+    }
+</script>
+   <footer>
+    <p>© 2025 MyShop. All rights reserved.</p>
+  </footer>
+</body>
+</html>

@@ -9,62 +9,158 @@
 <body>
   <div class="container">
     <div class="left">
-      <img src="./piccc.png" alt="Illustration" >
+      <img src="./piccc.png" alt="Illustration">
     </div>
     <div class="right">
 
-        <form id="login-form" class="active" onsubmit="return validateLogin()">
-      <h2>Login</h2>
-      <input type="email" id="login-email" placeholder="Email" required>
+      <!-- Login Form -->
+      <form id="login-form" class="active" onsubmit="return validateLogin()">
+        <h2>Login</h2>
+        <input type="email" id="login-email" placeholder="Email" required>
+        <div class="password-wrapper">
+          <input type="password" id="login-password" placeholder="Password" required>
+          <span class="toggle-eye" onclick="togglePassword('login-password', this)">👁️‍🗨️</span>
+        </div>
+        <a href="#" onclick="showForm('reset')">Forgot Password?</a>
+        <p class="error" id="login-error"></p>
+        <button type="submit">Login</button>
+        <div class="form-links">
+          <p class="switch">New User? <a href="#" onclick="showForm('signup')">Create an account</a></p>
+        </div>
+      </form>
 
-      <div class="password-wrapper">
-        <input type="password" id="login-password" placeholder="Password" required>
-        <span class="toggle-eye" onclick="togglePassword('login-password', this)">👁️‍🗨️</span>
-      </div>
+      <!-- Signup Form -->
+      <form id="signup-form" onsubmit="return validateSignup(event)">
+        <h2>Sign Up</h2>
+        <input type="text" id="signup-name" placeholder="Full Name" required pattern="[A-Za-z\s]+" title="Letters and spaces only">
+        <input type="email" id="signup-email" placeholder="Email" required>
+        <div class="password-wrapper">
+          <input type="password" id="signup-password" placeholder="Password" required>
+          <span class="toggle-eye" onclick="togglePassword('signup-password', this)">👁️‍🗨️</span>
+        </div>
+        <p class="error" id="signup-error"></p>
+        <button type="submit">Sign Up</button>
+      </form>
 
-       <a href="#" onclick="showForm('reset')">Forgot Password?</a> 
-
-      <p class="error" id="login-error"></p>
-      <button type="submit">Login</button>
-      <div class="form-links">
-        <p class="switch">New User?<a href="#" onclick="showForm('signup')">Create an account</a></p>
-      </div>
-    </form>
-
-    
-       <form id="signup-form">
-            <h2>Sign Up</h2>
-            <input type="text" id="signup-name" placeholder="Full Name" required pattern="[A-Za-z\s]+" title="Letters and spaces only">
-            <input type="email" id="signup-email" placeholder="Email" required>
-            <div class="password-wrapper">
-                <input type="password" id="signup-password" placeholder="Password" required>
-                <span class="toggle-eye" onclick="togglePassword('signup-password', this)">👁️‍🗨️</span>
-            </div>
-            <p class="error" id="signup-error"></p>
-            <button type="submit" onclick="validateSignup(event)">Sign Up</button>
-        </form>
-
-    
-    <form id="reset-form" onsubmit="return validateReset()">
-      <h2>Reset Password</h2>
-      <input type="email" id="reset-email" placeholder="Email" required>
-      <div class="password-wrapper">
-        <input type="password" id="reset-password" placeholder="New Password" required>
-        <span class="toggle-eye" onclick="togglePassword('reset-password', this)">👁️‍🗨️</span>
-      </div>
-      <div class="password-wrapper">
-        <input type="password" id="reset-confirm" placeholder="Confirm Password" required>
-        <span class="toggle-eye" onclick="togglePassword('reset-confirm', this)">👁️‍🗨️</span>
-      </div>
-      <p class="error" id="reset-error"></p>
-      <button type="submit">Reset Password</button>
-      <div class="form-links">
-        <a href="#" onclick="showForm('login')">Back to Login</a>
-      </div>
-    </form>
+      <!-- Reset Form -->
+      <form id="reset-form" onsubmit="return validateReset()">
+        <h2>Reset Password</h2>
+        <input type="email" id="reset-email" placeholder="Email" required>
+        <div class="password-wrapper">
+          <input type="password" id="reset-password" placeholder="New Password" required>
+          <span class="toggle-eye" onclick="togglePassword('reset-password', this)">👁️‍🗨️</span>
+        </div>
+        <div class="password-wrapper">
+          <input type="password" id="reset-confirm" placeholder="Confirm Password" required>
+          <span class="toggle-eye" onclick="togglePassword('reset-confirm', this)">👁️‍🗨️</span>
+        </div>
+        <p class="error" id="reset-error"></p>
+        <button type="submit">Reset Password</button>
+        <div class="form-links">
+          <a href="#" onclick="showForm('login')">Back to Login</a>
+        </div>
+      </form>
+    </div>
   </div>
-
   
-  <script src="ekart.js"></script>
+  <div id="toast-container"></div>
+
+  <script>
+    function showForm(formId) {
+      ['login', 'signup', 'reset'].forEach(id => {
+        document.getElementById(id + '-form').classList.remove('active');
+      });
+      document.getElementById(formId + '-form').classList.add('active');
+    }
+
+    function togglePassword(id, icon) {
+      const field = document.getElementById(id);
+      if (field.type === 'password') {
+        field.type = 'text';
+        icon.textContent = '👁️';
+      } else {
+        field.type = 'password';
+        icon.textContent = '👁️‍🗨️';
+      }
+    }
+
+    function showToast(message) {
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.textContent = message;
+      document.getElementById('toast-container').appendChild(toast);
+
+      // Trigger animation
+      setTimeout(() => {
+        toast.classList.add('show');
+      }, 100);
+
+      // Remove after 3 seconds
+      setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 400); // Wait for transition to end
+      }, 3000);
+    }
+
+    function validateLogin() {
+      const email = document.getElementById("login-email").value;
+      const password = document.getElementById("login-password").value;
+      const error = document.getElementById("login-error");
+
+      if (!email.includes("@") || !email.includes(".com") || password.length < 6) {
+        error.textContent = "Invalid email or password (min 6 characters).";
+        return false;
+      }
+
+      error.textContent = "";
+      showToast("Login successful!");
+      setTimeout(() => window.location.href = "ekhome.html", 1200);
+      return false;
+    }
+
+    function validateSignup(event) {
+      event.preventDefault();
+      const name = document.getElementById("signup-name").value;
+      const email = document.getElementById("signup-email").value;
+      const password = document.getElementById("signup-password").value;
+      const error = document.getElementById("signup-error");
+
+      const namePattern = /^[A-Za-z\s]+$/;
+
+      if (!name || !namePattern.test(name)) {
+        error.textContent = "Name must contain letters only.";
+        return false;
+      }
+
+      if (!name || !email.includes("@") || !email.includes(".com") || password.length < 6) {
+        error.textContent = "Please enter valid information.";
+        return false;
+      }
+
+      error.textContent = "";
+      showToast("Signup successful!");
+      setTimeout(() => {
+      showForm('login');
+    }, 1000); 
+
+    return false;
+    }
+
+    function validateReset() {
+      const email = document.getElementById("reset-email").value;
+      const password = document.getElementById("reset-password").value;
+      const confirm = document.getElementById("reset-confirm").value;
+      const error = document.getElementById("reset-error");
+
+      if (!email.includes("@") || !email.includes(".com") || password.length < 6 || password !== confirm) {
+        error.textContent = "Invalid input or passwords do not match.";
+        return false;
+      }
+
+      error.textContent = "";
+      showToast("Password reset successful!");
+      return true;
+    }
+  </script>
 </body>
 </html>

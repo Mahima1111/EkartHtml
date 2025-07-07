@@ -4,121 +4,313 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Product View</title>
-  <link rel="stylesheet" href="ekhome.css" />
-    <link rel="stylesheet" href="index.css" />
+  <link rel="stylesheet" href="ekhome.css"/>
+  <link rel="stylesheet" href="index.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    .product-review-section {
+      background-color: #f8f9fa;
+      padding: 20px;
+      border-radius: 12px;
+      max-width: 700px;
+      margin: 30px auto;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    }
 
-</head>
-<body>
+    .product-review-section h2 {
+      font-size: 24px;
+      margin-bottom: 16px;
+      color: #333;
+    }
 
-<div class="product-view-container">
-  <div class="left-gallery">
-    <!-- <div class="thumbnail-list">
-      <img src="img1.jpg" onclick="changeImage(this)" />
-      <img src="img2.jpg" onclick="changeImage(this)" />
-      <img src="img3.jpg" onclick="changeImage(this)" />
-      <img src="img4.jpg" onclick="changeImage(this)" />
-    </div> -->
-    <div class="main-image">
-      <img id="main-image" src="./modernss.jpg" alt="Product Image" />
-    </div>
-  </div> 
+    #reviewForm {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
 
-  <div class="right-details">
-    <h2>Trijal Fab Top Benicia Attire Women Ethnic Dress Length Dress</h2>
-    <p class="brand">Brand: <strong>Benicia Attire</strong></p>
+    #reviewText {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      resize: vertical;
+      min-height: 100px;
+    }
 
-    <div class="price-section">
-      <span class="price">₹399</span>
-      <span class="mrp">₹1,299</span>
-      <span class="discount">75% off</span>
-    </div>
+    #reviewForm button {
+      padding: 12px;
+      font-size: 16px;
+      background-color: #0d6efd;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
 
-    <div class="rating-box">
-      <span class="rating">★ 3.8</span>
-      <span class="reviews">12 ratings & 1 review</span>
-    </div>
+    #reviewForm button:hover {
+      background-color: #0b5ed7;
+    }
 
-    <div class="size-selector">
-      <p><strong>Size:</strong></p>
-      <button>S</button>
-      <button>M</button>
-      <button>L</button>
-      <button>XL</button>
-      <button>XXL</button>
-      <!-- <a href="#">Size Chart 📏</a> -->
-    </div>
+    .review {
+      background-color: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
 
-    <div class="offers">
-      <h4>Available offers</h4>
-      <ul>
-        <li>✅ 100% Cashback on Axis Bank UPI</li>
-        <li>✅ 5% off with Flipkart Axis Credit Card</li>
-        <li>✅ 10% off on SBI EMI orders above ₹5,000</li>
-        <li>✅ Extra 10% off with coupons</li>
-      </ul>
-    </div>
+    .review strong {
+      color: #0d6efd;
+      font-size: 16px;
+      display: block;
+      margin-bottom: 4px;
+    }
 
- <div class="delivery-check">
-  <label>Enter delivery pincode:</label>
-  <input type="text" id="pincodeInput" placeholder="e.g. 560001" />
-  <button onclick="checkPincode()">Check</button>
-  <p id="pincodeResult"></p>
-</div>
+    .review small {
+      color: #666;
+      font-size: 13px;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .review p {
+      margin: 0;
+      font-size: 15px;
+      color: #333;
+      line-height: 1.5;
+    }
+.menu-toggle {
+  display: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.menu-toggle.open::before {
+  content: " ";
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+}
 
 
-    <div class="action-buttons">
-     <a href="ekcart.html"> <button class="cart-btn">🛒 Add to Cart</button></a>
-    <a href="ekorder1.html"> <button class="buy-btn">⚡ Buy Now</button> </a> 
-    </div>
-  </div>
-</div>
-
-<section class="product-review-section">
-  <h2>Customer Reviews</h2>
-
-  <div class="review-form">
-    <h3>Write a Review</h3>
-    <textarea id="reviewText" placeholder="Write your thoughts..." rows="4"></textarea>
-    <div class="rating">
-      <label>Rating:</label>
-      <select id="reviewRating">
-        <option value="5">⭐ 5 - Excellent</option>
-        <option value="4">⭐ 4 - Good</option>
-        <option value="3">⭐ 3 - Average</option>
-        <option value="2">⭐ 2 - Poor</option>
-        <option value="1">⭐ 1 - Terrible</option>
-      </select>
-    </div>
-    <button onclick="submitReview()">Submit Review</button>
-  </div>
-
-  <div id="reviewsContainer">
-    <!-- Rendered reviews will appear here -->
-  </div>
-</section>
-
-<script>
-  function changeImage(elem) {
-    document.getElementById("main-image").src = elem.src;
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
   }
 
-  function checkPincode() {
-  const pin = document.getElementById("pincodeInput").value.trim();
-  const result = document.getElementById("pincodeResult");
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    background: #fff;
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    z-index: 1000;
+  }
 
-  // Check if pin is 6-digit and numeric
-  if (/^[1-9][0-9]{5}$/.test(pin)) {
-    result.textContent = "✅ Delivery available for this pincode.";
-    result.style.color = "green";
-  } else {
-    result.textContent = "❌ Invalid pincode. Please enter a valid 6-digit code.";
-    result.style.color = "red";
+  .nav-links.active {
+    display: flex;
   }
 }
-</script>
-  <script src="js/ekart.js"></script>
+
+    @media (max-width: 600px) {
+      .product-review-section {
+        padding: 15px;
+        margin: 15px;
+      }
+
+      #reviewText,
+      #reviewForm button {
+        font-size: 15px;
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">🛍️ Products</div>
+<div class="menu-toggle" id="menuToggle" onclick="toggleMenu()">☰</div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="ekhome.html">Home</a></li>
+      <li><a href="ekproduct.html">Products</a></li>
+      <div class="icons">
+        <div class="icon" onclick="window.location.href='ekwish.html'">
+          <i class="fas fa-heart"></i>
+          <span id="wishlist-count" class="badge">0</span>
+        </div>
+        <div class="icon" onclick="window.location.href='ekcart.html'">
+          <i class="fas fa-shopping-cart"></i>
+          <span id="cart-count" class="badge">0</span>
+        </div>
+      </div>
+      <li><a href="index.html">Logout</a></li>
+    </ul>
+  </header>
+
+  <div class="product-view-container">
+    <div class="left-gallery">
+      <div class="main-image">
+        <img id="main-image" src="./modernss.jpg" alt="Product Image" />
+      </div>
+    </div>
+
+    <div class="right-details">
+      <h2>Trijal Fab Top Benicia Attire Women Ethnic Dress</h2>
+      <p class="brand">Brand: <strong>Benicia Attire</strong></p>
+
+      <div class="price-section">
+        <span class="price">₹399</span>
+        <span class="mrp">₹1,299</span>
+        <span class="discount">75% off</span>
+      </div>
+
+      <div class="rating-box">
+        <span class="rating">★ 4.0</span>
+        <span class="reviews">15 ratings & 1 review</span>
+      </div>
+
+      <div class="size-selector">
+        <p><strong>Size:</strong></p>
+        <button>S</button>
+        <button>M</button>
+        <button>L</button>
+        <button>XL</button>
+        <button>XXL</button>
+      </div>
+
+      <div class="offers">
+        <h4>Available offers</h4>
+        <ul>
+          <li>✅ 100% Cashback on Axis Bank UPI</li>
+          <li>✅ 5% off with Axis Credit Card</li>
+          <li>✅ 10% off on SBI EMI orders above ₹5,000</li>
+          <li>✅ Extra 10% off with coupons</li>
+        </ul>
+      </div>
+
+      <div class="delivery-check">
+        <label>Enter delivery pincode:</label>
+        <input type="text" id="pincodeInput" placeholder="e.g. 560001" />
+        <button onclick="checkPincode()">Check</button>
+        <p id="pincodeResult"></p>
+      </div>
+
+      <div class="action-buttons">
+      <a href="ekcart.html"><button class="cart-btn">🛒 Add to Cart</button></a>
+     <a href="ekorder1.html"><button class="buy-btn">⚡ Buy Now</button></a>
+      </div>
+    </div>
+  </div>
+
+ 
+  <section class="product-review-section">
+    <h2>Customer Reviews</h2>
+
+    <form id="reviewForm">
+      <textarea id="reviewText" placeholder="Write your review..." required></textarea>
+      <button type="submit">Submit Review</button>
+    </form>
+
+    <div id="reviewsContainer"></div>
+  </section>
 
 
-  
+
+  <script>
+    const productId = "product_modernss";
+    const currentUser = localStorage.getItem("loggedInUser") || "Mahima";
+
+    document.addEventListener("DOMContentLoaded", () => {
+      updateCartCount();
+      updateWishlistCount();
+      loadProductReviews();
+
+      document.querySelectorAll(".size-selector button").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".size-selector button").forEach(b => b.classList.remove("selected"));
+          btn.classList.add("selected");
+        });
+      });
+
+      document.getElementById("reviewForm").addEventListener("submit", e => {
+        e.preventDefault();
+        const reviewText = document.getElementById("reviewText").value.trim();
+        if (!reviewText) return;
+
+        let allReviews = JSON.parse(localStorage.getItem("productReviews")) || [];
+        const existing = allReviews.find(r => r.productId === productId && r.name === currentUser);
+        if (existing) {
+          alert("You have already submitted a review for this product.");
+          return;
+        }
+
+        const now = new Date();
+        const timestamp = now.toLocaleDateString("en-GB", { day: "2-digit", month: "long", year: "numeric" }) +
+                          ", " + now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+
+        const review = { productId, name: currentUser, text: reviewText, timestamp };
+        allReviews.push(review);
+        localStorage.setItem("productReviews", JSON.stringify(allReviews));
+
+        addReviewToDOM(review);
+        document.getElementById("reviewForm").reset();
+      });
+    });
+
+    function loadProductReviews() {
+      const allReviews = JSON.parse(localStorage.getItem("productReviews")) || [];
+      const filtered = allReviews.filter(r => r.productId === productId);
+      filtered.forEach(addReviewToDOM);
+    }
+
+    function addReviewToDOM({ name, timestamp, text }) {
+      const container = document.getElementById("reviewsContainer");
+      const div = document.createElement("div");
+      div.className = "review";
+      div.innerHTML = `<strong>${name}</strong><br><small>${timestamp}</small><p>${text}</p>`;
+      container.appendChild(div);
+    }
+
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem("cartItems")) || [];
+      document.getElementById("cart-count").textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+    }
+
+    function updateWishlistCount() {
+      const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+      document.getElementById("wishlist-count").textContent = wishlist.length;
+    }
+
+    function checkPincode() {
+      const pin = document.getElementById("pincodeInput").value.trim();
+      const result = document.getElementById("pincodeResult");
+      if (/^[1-9][0-9]{5}$/.test(pin)) {
+        result.textContent = "✅ Delivery available for this pincode.";
+        result.style.color = "green";
+      } else {
+        result.textContent = "Invalid pincode. Please enter a valid 6-digit code.";
+        result.style.color = "red";
+      }
+    }
+
+    function toggleMenu() {
+      const menu = document.getElementById("navLinks");
+      const toggle = document.querySelector(".menu-toggle");
+      if (menu && toggle) {
+        menu.classList.toggle("active");
+        toggle.classList.toggle("open");
+      }
+    }
+  </script>
 </body>
 </html>

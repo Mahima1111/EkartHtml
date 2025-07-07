@@ -17,7 +17,6 @@
    <ul class="nav-links">
     <li><a href="ekhome.html">Home</a></li>
     <li><a href="ekproduct.html">Products</a></li>
-    <li><a href="index.html">Logout</a></li>
   
   <div class="icons">
     <div class="icon" onclick="window.location.href='ekwish.html'">
@@ -29,21 +28,22 @@
       <span id="cart-count" class="badge">0</span>
     </div>
   </div>
+  <li><a href="index.html">Logout</a></li>
+
   </ul>
-<!-- </nav> -->
   </header>
 
  <header class="main-header">
   <div class="menu-icon" onclick="toggleMenu()">
-    <i class="fas fa-bars"></i>
+    <!-- <i class="fas fa-bars"></i> -->
   </div>
 
 
 <div class="search-container">
   <input type="text" id="searchInput" placeholder="Search products..." onkeyup="searchproducts()" />
-  <button class="search-icon" onclick="searchproducts()">
+  <!-- <button class="search-icon" onclick="searchproducts()">
     <i class="fas fa-search"></i>
-  </button>
+  </button> -->
 </div>
 
 </header>
@@ -52,21 +52,21 @@
     <div class="hero-slide active" style="background-image: url('./shooppu.jpg');">
       <div class="hero-content">
         <h1>GET STARTED<br>YOUR FAVORITE SHOPPING</h1>
-        <button class="btn-buy">BUY NOW</button>
+       <a href="ekproduct.html"><button class="btn-buy">BUY NOW</button></a> 
       </div>
     </div>
 
     <div class="hero-slide" style="background-image: url('./luxury-shopping-mall.avif');">
       <div class="hero-content">
         <h1>DISCOVER<br>EXCLUSIVE STYLES</h1>
-        <button class="btn-buy">SHOP NOW</button>
+       <a href="ekproduct.html"><button class="btn-buy">SHOP NOW</button></a>
       </div>
     </div>
 
     <div class="hero-slide" style="background-image: url('./shopyy.jpg');">
       <div class="hero-content">
         <h1>HOT DEALS<br>FOR YOU</h1>
-        <button class="btn-buy">EXPLORE</button>
+        <a href="ekproduct.html"><button class="btn-buy">EXPLORE</button></a>
       </div>
     </div>
 
@@ -77,44 +77,49 @@
   <section class="products">
     <a href="ekproduct.html" class="product-link">
     <div class="product-card product">
-      <img src="./mensss.png" alt="Men Fashion">
+      <img src="./blueshirt.png" alt="Men Fashion">
       <h3>TOPLOT Shirt</h3>
       <p>Trendy outfits for all seasons.</p>
-      <span class="price">65% off on all</span>
+      <span class="price">65% off on all</span> 
     </div>
+  </a>
 
    
     <a href="ekproduct.html" class="product-link">
     <div class="product-card product">
-      <img src="./girldress.jpg" alt="Women Fashion">
+      <img src="./pinkgirl.png" alt="Women Fashion">
       <h3>Trijal Fab Top</h3>
       <p>Chic and elegant styles.</p>
       <span class="price">50% offer</span>
     </div>
+    </a>
 
    <a href="ekproduct.html?product=baby-fashion" class="product-link">
     <div class="product-card product">
-      <img src="./kidsssss.avif" alt="Baby Fashion">
+      <img src="./kidsblue.png" alt="Baby Fashion">
       <h3>Kids Wear</h3>
       <p>Cute & cozy clothing for babies.</p>
       <span class="price">80% offer sale</span>
     </div>
+    </a>
 
     <a href="ekproduct.html?product=mens-fashion" class="product-link">
       <div class="product-card product">
-      <img src="./mensss.png" alt="Men Fashion">
+      <img src="./menshirt.png" alt="Men Fashion">
       <h3>Lymio Shirt</h3>
       <p>Trendy outfits for all seasons.</p>
       <span class="price">75% offer sale</span>
     </div>
+    </a>
 
     <a href="ekproduct.html" class="product-link">
     <div class="product-card product">
-      <img src="./girldress.jpg" alt="Women Fashion">
+      <img src="./womendress1.png" alt="Women Fashion">
       <h3>Fashion Top</h3>
       <p>Chic and elegant styles.</p>
       <span class="price">60% off on all brands</span>
     </div>
+    </a>
 
     <div class="explore-wrapper">
       <a href="ekproduct.html" class="btn secondary">Explore</a>
@@ -135,6 +140,22 @@
     }
   });
 }
+
+  function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem("cartItems")) || [];
+    const total = cart.reduce((sum, item) => sum + item.quantity, 0);
+    document.getElementById("cart-count").textContent = total;
+  }
+
+  function updateWishlistCount() {
+    const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+    document.getElementById("wishlist-count").textContent = wishlist.length;
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    updateCartCount();
+    updateWishlistCount();
+  });
 
 </script>
   <footer>
